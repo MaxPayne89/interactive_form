@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Register for Full Stack Conf</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/normalize.css">
 </head>
 <body>
 	<div class="container">
@@ -20,7 +20,7 @@
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
-        <input type="text" id="name" name="user-name">
+        <input type="text" id="name" name="user-name" autofocus>
         
         <label for="mail">Email:</label>
         <input type="email" id="mail" name="user-email">
@@ -34,6 +34,7 @@
           <option value="student">Student</option>
           <option value="other">Other</option>  
         </select>           
+        <textarea id="other-title" placeholder="Your Job Role"></textarea>
       </fieldset>
       
       <fieldset class="shirt">
@@ -172,6 +173,7 @@
     </form>
 
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
