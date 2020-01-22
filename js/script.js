@@ -5,8 +5,10 @@ const $selectBoxColor = $("#color");
 const $selectBoxColorOptions = $("#color").find("option");
 const $selectBoxJob = $("#title");
 const checkboxes = document.querySelectorAll(".activities input");
-//const totalCostDOM = `<label><p>${totalCost}</p></label>`;
+const totalCostDOM = document.createElement('div');
 let totalCost = 0;
+let labelText = document.createTextNode(`${totalCost}`);
+totalCostDOM.appendChild(labelText)
 //regexes
 const jsPunsRegex = /\DJS Puns shirt only\D/;
 const jsShirtRegex = /JS shirt only\D/;
@@ -49,6 +51,13 @@ $selectBoxDesign.on("change", () => {
 $(".activities").on('change', (element) => {
     const clicked = element.target;
     const clickedDateAndTime = clicked.getAttribute('data-day-and-time');
+    const elementCost = parseInt(clicked.getAttribute('data-cost'));
+    //add or subtract the element's cost
+    if(clicked.checked){
+        totalCost += elementCost;
+    }else {
+        totalCost -= elementCost;
+    }
     checkboxes.forEach((element) => {
         let elementDateAndTime = element.getAttribute('data-day-and-time');
         if(elementDateAndTime === clickedDateAndTime && element !== clicked){
@@ -59,7 +68,9 @@ $(".activities").on('change', (element) => {
             }
         };
     });
+    document.querySelector(".activities div").textContent = `Total: $${totalCost}`;
 });
 //hide the text area from the get-go
 $otherTextArea.hide();
 $selectBoxDesign.change();
+document.querySelector(".activities").appendChild(totalCostDOM);
