@@ -70,7 +70,34 @@ $(".activities").on('change', (element) => {
     });
     document.querySelector(".activities div").textContent = `Total: $${totalCost}`;
 });
+//add event listener on the payment section select
+document.querySelector("#payment").addEventListener('change', (event) => {
+    if(event.target.value === 'credit card'){
+        //hide the other two div's
+        document.querySelector("#credit-card").style.visibility = 'visible';
+        document.querySelector("#paypal").style.visibility = 'hidden';
+        document.querySelector("#bitcoin").style.visibility = 'hidden';
+    }else if(event.target.value == 'paypal'){
+        document.querySelector("#credit-card").style.visibility = 'hidden';
+        document.querySelector("#paypal").style.visibility = 'visible';
+        document.querySelector("#bitcoin").style.visibility = 'hidden';
+    }else {
+        document.querySelector("#credit-card").style.visibility = 'hidden';
+        document.querySelector("#paypal").style.visibility = 'hidden';
+        document.querySelector("#bitcoin").style.visibility = 'visible';
+    }
+});
 //hide the text area from the get-go
 $otherTextArea.hide();
+//triger the event listener
 $selectBoxDesign.change();
+//append the total cost div
 document.querySelector(".activities").appendChild(totalCostDOM);
+//select the payment method select element
+Array.from(document.querySelector("#payment").children).forEach(child => {
+    if(child.value === 'select method'){
+        child.style.display = 'none';
+    }else if(child.value === 'credit card'){
+        child.setAttribute('selected', true);
+    }
+})
