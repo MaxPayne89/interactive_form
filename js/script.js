@@ -73,7 +73,7 @@ $(".activities").on('change', (element) => {
 //add event listener on the payment section select
 document.querySelector("#payment").addEventListener('change', (event) => {
     if(event.target.value === 'credit card'){
-        //hide the other two div's
+        //hide the other two div's based on the target's value
         document.querySelector("#credit-card").style.visibility = 'visible';
         document.querySelector("#paypal").style.visibility = 'hidden';
         document.querySelector("#bitcoin").style.visibility = 'hidden';
@@ -87,6 +87,68 @@ document.querySelector("#payment").addEventListener('change', (event) => {
         document.querySelector("#bitcoin").style.visibility = 'visible';
     }
 });
+//add event listener on submit
+document.querySelector('form').addEventListener('submit', (event) => {
+    //prevent the post to index.html
+    event.preventDefault();
+    const inputName = document.querySelector("#name");
+    //validate the name
+    if(!inputIsEmpty(inputName)){
+        redBorder(inputName);
+    }else {
+        removeBorder(inputName);
+    }
+    //validate the email
+    const mailField = document.querySelector("#mail");
+    const mailAdress = mailField.value;
+    if(!emailValidator(mailAdress)){
+        redBorder(mailField);
+    }else {
+        removeBorder(mailField);
+    }
+    //validate the acticity section
+    const checkboxes = Array.from(document.querySelectorAll(".activities > label > input"));
+    const oneIsChecked = checkboxValidator(checkboxes);
+    if(!oneIsChecked){
+        redBorder(document.querySelector(".activities"));
+    }else {
+        removeBorder(document.querySelector(".activities"));
+    }
+});
+//remove border
+removeBorder = (element) => {
+    element.style.border = "";
+};
+//set element's border
+redBorder = (element) => {
+    element.style.border = "3px solid #FF0000";
+};
+//function that determines whether an input field is left blank 
+inputIsEmpty = (element) => {
+    const trimmedInput = element.value.trim();
+    if(trimmedInput){
+        return true;
+    }else {
+        return false;
+    };
+};
+//matches regex against the user's provided input
+emailValidator = (emailAdress) => {
+    const emailRegex = /\S+@\S+\.(com|net|de)/;
+    console.log(emailRegex.test(emailAdress));
+    return emailRegex.test(emailAdress);
+};
+//loop over inputs and check whether at least one checkbox is selected
+checkboxValidator = (arrOfElements) => {
+    filteredElements = arrOfElements.filter(element => {
+        return element.checked;
+    });
+    if(filteredElements.length >= 1){
+        return true;
+    }else {
+        return false;
+    };
+}
 //hide the text area from the get-go
 $otherTextArea.hide();
 //triger the event listener
