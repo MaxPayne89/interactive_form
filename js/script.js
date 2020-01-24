@@ -97,7 +97,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
         redBorder(inputName);
     }else {
         removeBorder(inputName);
-    }
+    };
     //validate the email
     const mailField = document.querySelector("#mail");
     const mailAdress = mailField.value;
@@ -105,7 +105,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
         redBorder(mailField);
     }else {
         removeBorder(mailField);
-    }
+    };
     //validate the acticity section
     const checkboxes = Array.from(document.querySelectorAll(".activities > label > input"));
     const oneIsChecked = checkboxValidator(checkboxes);
@@ -113,8 +113,58 @@ document.querySelector('form').addEventListener('submit', (event) => {
         redBorder(document.querySelector(".activities"));
     }else {
         removeBorder(document.querySelector(".activities"));
+    };
+    //validate the credit card inputs
+    //first, check whether the credit card option is selected
+    const selectPaymentElement = document.querySelector("#payment");
+    if(selectPaymentElement.value === 'credit card'){
+        //check validity of the cc number
+        const creditCardField = document.querySelector("#cc-num");
+        const creditCardNumber = creditCardField.value;
+        const isValidCreditCard = checkCreditCardNumber(creditCardNumber);
+        //validate the zip code
+        const zipCodeField = document.querySelector("#zip");
+        const zipCode = zipCodeField.value;
+        const isValidZipCode = checkZipCode(zipCode);
+        //validate the cvv
+        const cvvField = document.querySelector("#cvv");
+        const cvv = cvvField.value;
+        const isValidCvv = checkCvv(cvv);
+        //check ccNum
+        if(!isValidCreditCard){
+            redBorder(creditCardField);
+        }else {
+            removeBorder(creditCardField);
+        };
+        //check Zip code
+        if(!isValidZipCode){
+            redBorder(zipCodeField);
+        }else {
+            removeBorder(zipCodeField);
+        };
+        //check cvv
+        if(!isValidCvv){
+            redBorder(cvvField);
+        }else {
+            removeBorder(cvvField);
+        }
     }
 });
+//check cc number function
+checkCreditCardNumber = (str) => {
+    const ccRegEx = /\d{13,16}/;
+    return ccRegEx.test(str);
+};
+//check zip code function
+checkZipCode = (str) => {
+    const zipRegEx = /\d{5}/;
+    return zipRegEx.test(str);
+};
+//check cvv function
+checkCvv = (str) => {
+    const cvvRegEx = /\d{3}/;
+    return cvvRegEx.test(str);
+}
 //remove border
 removeBorder = (element) => {
     element.style.border = "";
@@ -135,7 +185,6 @@ inputIsEmpty = (element) => {
 //matches regex against the user's provided input
 emailValidator = (emailAdress) => {
     const emailRegex = /\S+@\S+\.(com|net|de)/;
-    console.log(emailRegex.test(emailAdress));
     return emailRegex.test(emailAdress);
 };
 //loop over inputs and check whether at least one checkbox is selected
