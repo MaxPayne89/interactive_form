@@ -68,21 +68,29 @@ $(".activities").on('change', (element) => {
     document.querySelector(".activities div").textContent = `Total: $${totalCost}`;
 });
 //add event listener on the payment section select
-document.querySelector("#payment").addEventListener('change', (event) => {
+//function for the payment section
+displayAndHideOptions = (event) => {
     if(event.target.value === 'credit card'){
         //hide the other two div's based on the target's value
-        document.querySelector("#credit-card").style.visibility = 'visible';
-        document.querySelector("#paypal").style.visibility = 'hidden';
-        document.querySelector("#bitcoin").style.visibility = 'hidden';
+        document.querySelector("#credit-card").style.display = '';
+        document.querySelector("#paypal").style.display = 'none';
+        document.querySelector("#bitcoin").style.display = 'none';
     }else if(event.target.value == 'paypal'){
-        document.querySelector("#credit-card").style.visibility = 'hidden';
-        document.querySelector("#paypal").style.visibility = 'visible';
-        document.querySelector("#bitcoin").style.visibility = 'hidden';
+        document.querySelector("#credit-card").style.display = 'none';
+        document.querySelector("#paypal").style.display = '';
+        document.querySelector("#bitcoin").style.display = 'none';
     }else {
-        document.querySelector("#credit-card").style.visibility = 'hidden';
-        document.querySelector("#paypal").style.visibility = 'hidden';
-        document.querySelector("#bitcoin").style.visibility = 'visible';
+        document.querySelector("#credit-card").style.display = 'none';
+        document.querySelector("#paypal").style.display = 'none';
+        document.querySelector("#bitcoin").style.display = '';
     }
+};
+document.querySelector("#payment").addEventListener('change', displayAndHideOptions, false);
+//hide everything but the by default selected credit card option
+window.addEventListener('load', () => {
+    document.querySelector("#credit-card").style.display = '';
+    document.querySelector("#paypal").style.display = 'none';
+    document.querySelector("#bitcoin").style.display = 'none';
 });
 //add event listener on submit
 document.querySelector('form').addEventListener('submit', (event) => {
@@ -211,4 +219,4 @@ Array.from(document.querySelector("#payment").children).forEach(child => {
     }else if(child.value === 'credit card'){
         child.setAttribute('selected', true);
     }
-})
+});
