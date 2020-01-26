@@ -23,10 +23,7 @@ $selectBoxJob.on("change", () => {
 });
 //add event listener on the design select
 $selectBoxDesign.on("change", () => {
-    if($selectBoxDesign.val() === 'Select Theme'){
-        //append the required option and make it selected by default
-        $selectBoxColorOptions.hide().end().append('<option value="select" selected>Please select a T-shirt theme</option>');
-    }else if($selectBoxDesign.val() === "js puns" ){
+        if($selectBoxDesign.val() === "js puns" ){
         //remove the Please select option
         $selectBoxColor.find('option[value="select"]').remove();
         $selectBoxColorOptions.hide();
@@ -201,8 +198,10 @@ checkboxValidator = (arrOfElements) => {
 }
 //hide the text area from the get-go
 $otherTextArea.hide();
-//triger the event listener
-$selectBoxDesign.change();
+//hide the 'select theme' option
+document.querySelector("#design > option").setAttribute("hidden", true);
+//append the required option and make it selected by default
+$selectBoxColorOptions.hide().end().append('<option value="select" selected>Please select a T-shirt theme</option>');
 //append the total cost div
 document.querySelector(".activities").appendChild(totalCostDOM);
 //select the payment method select element
