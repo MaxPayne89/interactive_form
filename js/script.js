@@ -89,11 +89,10 @@ document.querySelector("#payment").addEventListener('change', (event) => {
 });
 //add event listener on submit
 document.querySelector('form').addEventListener('submit', (event) => {
-    //prevent the post to index.html
-    event.preventDefault();
     const inputName = document.querySelector("#name");
     //validate the name
     if(!inputIsEmpty(inputName)){
+        event.preventDefault();
         redBorder(inputName);
     }else {
         removeBorder(inputName);
@@ -102,6 +101,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
     const mailField = document.querySelector("#mail");
     const mailAdress = mailField.value;
     if(!emailValidator(mailAdress)){
+        event.preventDefault();
         redBorder(mailField);
     }else {
         removeBorder(mailField);
@@ -110,6 +110,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
     const checkboxes = Array.from(document.querySelectorAll(".activities > label > input"));
     const oneIsChecked = checkboxValidator(checkboxes);
     if(!oneIsChecked){
+        event.preventDefault();
         redBorder(document.querySelector(".activities"));
     }else {
         removeBorder(document.querySelector(".activities"));
