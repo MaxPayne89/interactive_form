@@ -138,18 +138,21 @@ document.querySelector('form').addEventListener('submit', (event) => {
         const isValidCvv = checkCvv(cvv);
         //check ccNum
         if(!isValidCreditCard){
+            event.preventDefault();
             redBorder(creditCardField);
         }else {
             removeBorder(creditCardField);
         };
         //check Zip code
         if(!isValidZipCode){
+            event.preventDefault();
             redBorder(zipCodeField);
         }else {
             removeBorder(zipCodeField);
         };
         //check cvv
         if(!isValidCvv){
+            event.preventDefault();
             redBorder(cvvField);
         }else {
             removeBorder(cvvField);
