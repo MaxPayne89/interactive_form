@@ -32,8 +32,9 @@ $selectBoxDesign.on("change", () => {
         $selectBoxColorOptions.filter(function() {
             return jsPunsRegex.test($(this).text());
         }).show();
-        //select the first visible option value
-        $selectBoxColor.find("option:visible").first().prop('selected', true);
+        //remove the selected attribute of the other set and add it to the according one.
+        document.querySelector('#color > option:checked').removeAttribute('selected');
+        document.querySelector("#color > option[style='']").setAttribute('selected', true);
     } else {
         //same procedure with a different regex. Might refactor later.
         $selectBoxColor.find('option[value="select"]').remove();
@@ -41,7 +42,8 @@ $selectBoxDesign.on("change", () => {
         $selectBoxColorOptions.filter(function() {
             return jsShirtRegex.test($(this).text());
         }).show();
-        $selectBoxColor.find("option:visible").first().prop('selected', true);
+        document.querySelector('#color > option:checked').removeAttribute('selected');
+        document.querySelector("#color > option[style='']").setAttribute('selected', true);
     }
 });
 //add event listener on the activities fieldset
@@ -209,7 +211,7 @@ checkboxValidator = (arrOfElements) => {
 }
 //hide the text area from the get-go
 $otherTextArea.hide();
-//hide the 'select theme' option
+//hide the 'select theme' option and make it non-selected
 document.querySelector("#design > option").setAttribute("hidden", true);
 //append the required option and make it selected by default
 $selectBoxColorOptions.hide().end().append('<option value="select" selected>Please select a T-shirt theme</option>');
