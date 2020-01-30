@@ -163,17 +163,17 @@ document.querySelector('form').addEventListener('submit', (event) => {
 });
 //check cc number function
 checkCreditCardNumber = (str) => {
-    const ccRegEx = /\d{13,16}/;
+    const ccRegEx = /^\d{13,16}$/;
     return ccRegEx.test(str);
 };
 //check zip code function
 checkZipCode = (str) => {
-    const zipRegEx = /\d{5}/;
+    const zipRegEx = /^\d{5}$/;
     return zipRegEx.test(str);
 };
 //check cvv function
 checkCvv = (str) => {
-    const cvvRegEx = /\d{3}/;
+    const cvvRegEx = /^\d{3}$/;
     return cvvRegEx.test(str);
 }
 //remove border
