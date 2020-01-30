@@ -33,8 +33,7 @@ $selectBoxDesign.on("change", () => {
             return jsPunsRegex.test($(this).text());
         }).show();
         //remove the selected attribute of the other set and add it to the according one.
-        document.querySelector('#color > option:checked').removeAttribute('selected');
-        document.querySelector("#color > option[style='']").setAttribute('selected', true);
+        removeSelectedAndSetFirst(document.querySelectorAll('#color > option'), "cornflowerblue");
     } else {
         //same procedure with a different regex. Might refactor later.
         $selectBoxColor.find('option[value="select"]').remove();
@@ -42,10 +41,21 @@ $selectBoxDesign.on("change", () => {
         $selectBoxColorOptions.filter(function() {
             return jsShirtRegex.test($(this).text());
         }).show();
-        document.querySelector('#color > option:checked').removeAttribute('selected');
-        document.querySelector("#color > option[style='']").setAttribute('selected', true);
+        removeSelectedAndSetFirst(document.querySelectorAll('#color > option'), "tomato");
     }
 });
+//looping funtion that makes sure that no other option than the first possible one is selected
+removeSelectedAndSetFirst = (collection, value) => {
+    const convertedArray = [...collection]
+    convertedArray.forEach((element) => {
+        element.removeAttribute('selected');
+    });
+    convertedArray.forEach((element) => {
+        if(element.value === value){
+            element.selected = true;
+        }
+    })
+};
 //add event listener on the activities fieldset
 $(".activities").on('change', (element) => {
     const clicked = element.target;
